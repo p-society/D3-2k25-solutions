@@ -10,4 +10,4 @@ Submissions of all problem statement solutions.
 
 | Team Name | Project Link |
 |------------|---------------|
-| Hackasaurasple | [Drawisly](https://github.com/SobhanSah00/iiit_bbsrDrawisly) |
+| Hackasauras | [Drawisly](https://github.com/SobhanSah00/iiit_bbsrDrawisly) |

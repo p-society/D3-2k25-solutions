@@ -13,3 +13,4 @@ Submissions of all problem statement solutions.
 | Hackasauras | [Drawisly](https://github.com/SobhanSah00/iiit_bbsrDrawisly) |
 | Kon'nichiwa sekai | [PromptBuddy](https://github.com/manaspros/code) |
 | Raccoon Fanclub | [Codemia](https://github.com/maaaazin/Codemia) |
+| Just-Git-Gud | [LECTRA](https://github.com/Aqwerty321/Lectra) |

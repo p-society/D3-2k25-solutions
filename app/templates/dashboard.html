@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - SWAPP{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="mb-4">
+            Welcome back, {{ current_user.username }}!
+            <span class="trust-score ms-3">
+                <i class="fas fa-star"></i> {{ current_user.trust_score }}
+            </span>
+        </h1>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-users fa-3x mb-2" style="color: var(--primary-color)"></i>
+                <h5>Matches</h5>
+                <h2>{{ matches|length }}</h2>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-calendar fa-3x mb-2" style="color: var(--secondary-color)"></i>
+                <h5>Upcoming Sessions</h5>
+                <h2>{{ sessions|length }}</h2>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-envelope fa-3x mb-2" style="color: #9B59B6"></i>
+                <h5>Unread Messages</h5>
+                <h2>{{ unread_count }}</h2>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-star fa-3x mb-2" style="color: #FFD700"></i>
+                <h5>Trust Score</h5>
+                <h2>{{ current_user.trust_score }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-users"></i> Top Matches</h5>
+            </div>
+            <div class="card-body">
+                {% if matches %}
+                    {% for match in matches[:5] %}
+                        {% set other_user = match.user2 if match.user1_id == current_user.id else match.user1 %}
+                        <div class="d-flex justify-content-between align-items-center mb-3 p-2 border-bottom">
+                            <div>
+                                <strong>{{ other_user.username }}</strong>
+                                {% if match.is_double_swap %}
+                                    <span class="badge-double-swap ms-2">
+                                        <i class="fas fa-exchange-alt"></i> Double Swap
+                                    </span>
+                                {% endif %}
+                                <br>
+                                <small class="text-muted">{{ match.match_percentage }}% match</small>
+                            </div>
+                            <a href="{{ url_for('schedule_session', match_id=match.id) }}" class="btn btn-sm btn-primary">
+                                Schedule
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">No matches yet. Add skills to your profile to find matches!</p>
+                {% endif %}
+                <a href="{{ url_for('matches') }}" class="btn btn-outline-primary btn-sm mt-2">View All Matches</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-calendar-check"></i> Upcoming Sessions</h5>
+            </div>
+            <div class="card-body">
+                {% if sessions %}
+                    {% for session in sessions[:5] %}
+                        {% set other_user = session.teacher if session.learner_id == current_user.id else session.learner %}
+                        <div class="mb-3 p-2 border-bottom">
+                            <strong>{{ session.skill_topic }}</strong><br>
+                            <small class="text-muted">
+                                <i class="fas fa-user"></i> with {{ other_user.username }}<br>
+                                <i class="fas fa-clock"></i> {{ session.scheduled_time.strftime('%b %d, %Y at %I:%M %p') }}
+                            </small>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">No upcoming sessions scheduled.</p>
+                {% endif %}
+                <a href="{{ url_for('sessions') }}" class="btn btn-outline-primary btn-sm mt-2">View All Sessions</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5>Quick Actions</h5>
+                <a href="{{ url_for('profile') }}" class="btn btn-primary me-2">
+                    <i class="fas fa-user-edit"></i> Edit Profile
+                </a>
+                <a href="{{ url_for('matches') }}" class="btn btn-success me-2">
+                    <i class="fas fa-search"></i> Find Matches
+                </a>
+                <a href="{{ url_for('messages') }}" class="btn btn-info me-2">
+                    <i class="fas fa-comments"></i> Messages
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

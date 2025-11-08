@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Sessions - SWAPP{% endblock %}
+
+{% block content %}
+<h1 class="mb-4"><i class="fas fa-calendar"></i> Your Learning Sessions</h1>
+
+<div class="row">
+    {% for session in sessions %}
+        {% set other_user = session.teacher if session.learner_id == current_user.id else session.learner %}
+        {% set is_past = session.scheduled_time < now %}
+        <div class="col-md-6 mb-4">
+            <div class="card {% if is_past %}border-secondary{% endif %}">
+                <div class="card-body">
+                    <h5>{{ session.skill_topic }}</h5>
+                    <hr>
+                    <p>
+                        <i class="fas fa-user"></i> <strong>{% if session.teacher_id == current_user.id %}Teaching{% else %}Learning from{% endif %}:</strong> {{ other_user.username }}<br>
+                        <i class="fas fa-clock"></i> <strong>When:</strong> {{ session.scheduled_time.strftime('%b %d, %Y at %I:%M %p') }}<br>
+                        <i class="fas fa-hourglass-half"></i> <strong>Duration:</strong> {{ session.duration_minutes }} minutes<br>
+                        <i class="fas fa-info-circle"></i> <strong>Status:</strong> 
+                        <span class="badge bg-{% if session.status == 'scheduled' %}primary{% elif session.status == 'completed' %}success{% else %}secondary{% endif %}">
+                            {{ session.status }}
+                        </span>
+                    </p>
+                    
+                    {% if session.notes %}
+                        <p class="small text-muted"><strong>Notes:</strong> {{ session.notes }}</p>
+                    {% endif %}
+                    
+                    <div class="mt-3">
+                        {% if session.status == 'scheduled' %}
+                            <a href="{{ url_for('classroom', session_id=session.id) }}" class="btn btn-success btn-sm">
+                                <i class="fas fa-video"></i> Join Classroom
+                            </a>
+                        {% endif %}
+                        {% if session.status == 'completed' %}
+                            <a href="{{ url_for('review', session_id=session.id) }}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-star"></i> Leave Review
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="col-md-12">
+            <div class="alert alert-info">
+                <h5>No sessions scheduled yet!</h5>
+                <p>Find matches and schedule your first learning session.</p>
+                <a href="{{ url_for('matches') }}" class="btn btn-primary">Find Matches</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

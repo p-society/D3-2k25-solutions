@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Messages - SWAPP{% endblock %}
+
+{% block content %}
+<h1 class="mb-4"><i class="fas fa-envelope"></i> Messages</h1>
+
+<div class="row">
+    {% for user in conversations %}
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5><i class="fas fa-user-circle"></i> {{ user.username }}</h5>
+                            <span class="trust-score">
+                                <i class="fas fa-star"></i> {{ user.trust_score }}
+                            </span>
+                        </div>
+                        <a href="{{ url_for('chat', user_id=user.id) }}" class="btn btn-primary">
+                            <i class="fas fa-comment"></i> Open Chat
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="col-md-12">
+            <div class="alert alert-info">
+                <h5>No conversations yet!</h5>
+                <p>Start chatting with your matches to coordinate learning sessions.</p>
+                <a href="{{ url_for('matches') }}" class="btn btn-primary">View Matches</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

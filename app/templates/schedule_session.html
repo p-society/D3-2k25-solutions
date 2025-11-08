@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Schedule Session - SWAPP{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="fas fa-calendar-plus"></i> Schedule a Learning Session</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <strong>Scheduling with:</strong> {{ other_user.username }}
+                    <span class="trust-score ms-2">
+                        <i class="fas fa-star"></i> {{ other_user.trust_score }}
+                    </span>
+                </div>
+                
+                <form method="POST" action="{{ url_for('schedule_session', match_id=match.id) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <div class="mb-3">
+                        <label class="form-label">Skill Topic</label>
+                        <input type="text" class="form-control" name="skill_topic" required placeholder="What skill will be taught?">
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Date</label>
+                            <input type="date" class="form-control" name="scheduled_date" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Time</label>
+                            <input type="time" class="form-control" name="scheduled_time" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Duration (minutes)</label>
+                        <select class="form-select" name="duration">
+                            <option value="30">30 minutes</option>
+                            <option value="60" selected>1 hour</option>
+                            <option value="90">1.5 hours</option>
+                            <option value="120">2 hours</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Notes (Optional)</label>
+                        <textarea class="form-control" name="notes" rows="3" placeholder="Any specific topics or preparation needed?"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-check"></i> Schedule Session
+                    </button>
+                    <a href="{{ url_for('matches') }}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

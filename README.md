@@ -13,6 +13,7 @@ Submissions of all problem statement solutions.
 | Hackasauras | [Drawisly](https://github.com/SobhanSah00/iiit_bbsrDrawisly) |
 | Kon'nichiwa sekai | [PromptBuddy](https://github.com/manaspros/code) |
 | Raccoon Fanclub | [Codemia](https://github.com/maaaazin/Codemia) |
+| Team CogniCode | [EduSynth](https://github.com/varunaditya27/EduSynth) |
 | Lone Wolf |  [digital-lab-grader](https://github.com/prakash-io/digital-lab-grader) |
 | SentinelX | [GitHub Repo Link](https://github.com/BhargavShekhar/swap-sphere) |
 | Resolvers | [DigiGrade](https://github.com/PiyushSutar-570/D3-2K25-SOLUTIONS-DIGITAL_LAB_GRADER) |

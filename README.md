@@ -10,6 +10,7 @@ Submissions of all problem statement solutions.
 
 | Team Name | Project Link |
 |------------|---------------|
+| Magic Monks | [Maven](https://github.com/AdItYa-1900/Maven/tree/main) |
 | Hackasauras | [Drawisly](https://github.com/SobhanSah00/iiit_bbsrDrawisly) |
 | Kon'nichiwa sekai | [PromptBuddy](https://github.com/manaspros/code) |
 | CodeForge | [KnowLedge](https://github.com/vivaanmathur/skillswap) |
